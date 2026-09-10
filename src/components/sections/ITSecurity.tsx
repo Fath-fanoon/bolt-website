@@ -17,7 +17,7 @@ export function ITSecurity() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: gsap.core.Context | null = null;
+    let ctx: GsapContext | null = null;
 
     (async () => {
       const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');

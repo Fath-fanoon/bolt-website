@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Quote } from 'lucide-react';
 import { testimonials } from '@/data/content';
+import type { GsapContext } from '@/hooks/useGsap';
 
 export function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    let ctx: gsap.core.Context | null = null;
+    let ctx: GsapContext | null = null;
 
     (async () => {
       const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');

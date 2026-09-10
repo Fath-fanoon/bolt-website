@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { industries } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import type { GsapContext } from '@/hooks/useGsap';
 
 export function Industries() {
   const sectionRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: gsap.core.Context | null = null;
+    let ctx: GsapContext | null = null;
 
     (async () => {
       const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
@@ -22,7 +23,7 @@ export function Industries() {
         const panels = gsap.utils.toArray<HTMLElement>('.industry-panel');
         const totalWidth = panels.reduce((sum, panel) => sum + panel.offsetWidth, 0);
 
-        gsap.to(track, {
+        const horizontalTween = gsap.to(track, {
           x: () => -(totalWidth - window.innerWidth + 80),
           ease: 'none',
           scrollTrigger: {
@@ -50,7 +51,7 @@ export function Industries() {
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: panel,
-                containerAnimation: ScrollTrigger.getAll().find((st) => st.vars.trigger === sectionRef.current),
+                containerAnimation: horizontalTween,
                 start: 'left 80%',
                 toggleActions: 'play none none reverse',
               },
@@ -68,7 +69,7 @@ export function Industries() {
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: panel,
-                containerAnimation: ScrollTrigger.getAll().find((st) => st.vars.trigger === sectionRef.current),
+                containerAnimation: horizontalTween,
                 start: 'left 80%',
                 toggleActions: 'play none none reverse',
               },

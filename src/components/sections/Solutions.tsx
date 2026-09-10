@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { solutions } from '@/data/content';
 import { useIsMobile, usePrefersReducedMotion } from '@/hooks/useScrollSetup';
+import type { GsapContext } from '@/hooks/useGsap';
 
 const iconMap: Record<string, LucideIcon> = {
   LayoutGrid, Boxes, Code2, Globe, Smartphone, Server, Network,
@@ -19,7 +20,7 @@ export function Solutions() {
   const prefersReduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    let ctx: gsap.core.Context | null = null;
+    let ctx: GsapContext | null = null;
 
     (async () => {
       const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');

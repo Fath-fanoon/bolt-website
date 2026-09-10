@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { processSteps } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import type { GsapContext } from '@/hooks/useGsap';
 
 export function WhyInfonet() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -8,7 +9,7 @@ export function WhyInfonet() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: gsap.core.Context | null = null;
+    let ctx: GsapContext | null = null;
 
     (async () => {
       const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
