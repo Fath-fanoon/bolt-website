@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { processSteps } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import { gsap, ScrollTrigger } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function WhyInfonet() {
@@ -9,13 +10,9 @@ export function WhyInfonet() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         const steps = gsap.utils.toArray<HTMLElement>('.process-step');
 
         steps.forEach((step, i) => {
@@ -79,10 +76,9 @@ export function WhyInfonet() {
             }
           );
         }
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, [isMobile]);
 
   return (

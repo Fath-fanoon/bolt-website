@@ -1,19 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { stats } from '@/data/content';
 import { Reveal } from '@/components/Reveal';
+import { gsap } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function CompanyIntro() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         // Stats counter
         stats.forEach((stat) => {
           const numStr = stat.value.replace(/[^0-9.]/g, '');
@@ -40,10 +37,9 @@ export function CompanyIntro() {
             },
           });
         });
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   return (

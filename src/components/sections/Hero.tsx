@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { ArrowDown } from 'lucide-react';
 import { company } from '@/data/content';
 import { scrollToSection } from '@/hooks/useScrollSetup';
-import type { GsapContext } from '@/hooks/useGsap';
+import { gsap, ScrollTrigger } from '@/hooks/useGsap';
 
 export function Hero() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -183,44 +183,43 @@ export function Hero() {
 
   // GSAP text animations
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!heroRef.current) return;
 
-    (async () => {
-      const { gsap } = await import('@/hooks/useGsap');
-      if (!heroRef.current) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.3 });
 
-      ctx = gsap.context(() => {
-        const tl = gsap.timeline({ delay: 0.3 });
+      tl.fromTo('.hero-eyebrow',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' })
+        .fromTo('.hero-title-line',
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out' }, '-=0.4')
+        .fromTo('.hero-tagline',
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+        .fromTo('.hero-cta',
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
+        .fromTo('.hero-scroll-hint',
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.2');
 
-        tl.from('.hero-eyebrow', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' })
-          .from('.hero-title-line', {
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: 'power3.out',
-          }, '-=0.4')
-          .from('.hero-tagline', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-          .from('.hero-cta', { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
-          .from('.hero-scroll-hint', { opacity: 0, duration: 0.8, ease: 'power2.out' }, '-=0.2');
+      // Scroll parallax
+      gsap.to('.hero-content', {
+        y: -100,
+        opacity: 0,
+        filter: 'blur(10px)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroRef.current!,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+    }, heroRef.current);
 
-        // Scroll parallax
-        gsap.to('.hero-content', {
-          y: -100,
-          opacity: 0,
-          filter: 'blur(10px)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      }, heroRef.current);
-    })();
-
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { gsap } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 type RevealProps = {
@@ -15,36 +16,27 @@ export function Reveal({ children, className = '', delay = 0, y = 40, as = 'div'
   useEffect(() => {
     if (!ref) return;
 
-    let ctx: GsapContext | null = null;
+    const ctx: GsapContext = gsap.context(() => {
+      gsap.fromTo(
+        ref,
+        { y, opacity: 0, filter: 'blur(8px)' },
+        {
+          y: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 1,
+          delay,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: ref,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      gsap.registerPlugin(ScrollTrigger);
-
-      ctx = gsap.context(() => {
-        gsap.fromTo(
-          ref,
-          { y, opacity: 0, filter: 'blur(8px)' },
-          {
-            y: 0,
-            opacity: 1,
-            filter: 'blur(0px)',
-            duration: 1,
-            delay,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: ref,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-    })();
-
-    return () => {
-      ctx?.revert();
-    };
+    return () => ctx.revert();
   }, [ref, delay, y]);
 
   const Tag = as as React.ElementType;

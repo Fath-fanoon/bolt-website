@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { industries } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import { gsap } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function Industries() {
@@ -8,13 +9,9 @@ export function Industries() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         if (isMobile) return;
 
         const track = sectionRef.current?.querySelector('.industries-track') as HTMLElement;
@@ -76,10 +73,9 @@ export function Industries() {
             }
           );
         });
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, [isMobile]);
 
   return (

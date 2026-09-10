@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { products } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import { gsap, ScrollTrigger } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function ProductShowcase() {
@@ -14,13 +15,9 @@ export function ProductShowcase() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         const track = sectionRef.current?.querySelector('.product-track') as HTMLElement;
         if (!track) return;
 
@@ -96,10 +93,9 @@ export function ProductShowcase() {
             }
           });
         }
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   const active = products[activeIndex];

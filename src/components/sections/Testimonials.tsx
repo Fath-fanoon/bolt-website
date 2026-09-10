@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Quote } from 'lucide-react';
 import { testimonials } from '@/data/content';
+import { gsap } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function Testimonials() {
@@ -8,13 +9,9 @@ export function Testimonials() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         // Auto-advance
         const interval = setInterval(() => {
           setActive((prev) => (prev + 1) % testimonials.length);
@@ -38,10 +35,9 @@ export function Testimonials() {
         );
 
         return () => clearInterval(interval);
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   return (

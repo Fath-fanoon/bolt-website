@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mail, Phone, MapPin, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { company } from '@/data/content';
+import { gsap } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 export function Contact() {
@@ -37,13 +38,9 @@ export function Contact() {
   };
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         gsap.fromTo(
           '.contact-content',
           { y: 60, opacity: 0 },
@@ -59,10 +56,9 @@ export function Contact() {
             },
           }
         );
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   const contactInfo = [

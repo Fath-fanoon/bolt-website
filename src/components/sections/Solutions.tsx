@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { solutions } from '@/data/content';
 import { useIsMobile, usePrefersReducedMotion } from '@/hooks/useScrollSetup';
+import { gsap, ScrollTrigger } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -20,13 +21,9 @@ export function Solutions() {
   const prefersReduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         if (isMobile) return;
 
         const items = gsap.utils.toArray<HTMLElement>('.solution-item');
@@ -82,10 +79,9 @@ export function Solutions() {
             setActiveIndex(idx);
           },
         });
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, [isMobile]);
 
   const active = solutions[activeIndex];

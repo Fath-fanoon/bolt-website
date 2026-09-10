@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { securityNodes } from '@/data/content';
 import { useIsMobile } from '@/hooks/useScrollSetup';
+import { gsap, ScrollTrigger } from '@/hooks/useGsap';
 import type { GsapContext } from '@/hooks/useGsap';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -17,13 +18,9 @@ export function ITSecurity() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    let ctx: GsapContext | null = null;
+    if (!sectionRef.current) return;
 
-    (async () => {
-      const { gsap, ScrollTrigger } = await import('@/hooks/useGsap');
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
+    const ctx: GsapContext = gsap.context(() => {
         const nodes = gsap.utils.toArray<HTMLElement>('.sec-node');
         const total = nodes.length;
 
@@ -93,10 +90,9 @@ export function ITSecurity() {
             }
           );
         });
-      }, sectionRef.current);
-    })();
+    }, sectionRef.current);
 
-    return () => ctx?.revert();
+    return () => ctx.revert();
   }, []);
 
   const active = securityNodes[activeNode];
