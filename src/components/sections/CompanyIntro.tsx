@@ -13,14 +13,20 @@ export function CompanyIntro() {
     const ctx: GsapContext = gsap.context(() => {
         // Stats counter
         stats.forEach((stat) => {
-          const numStr = stat.value.replace(/[^0-9.]/g, '');
-          const num = parseFloat(numStr);
-          if (isNaN(num)) return;
-
-          const obj = { val: 0 };
           const el = sectionRef.current?.querySelector(`[data-stat="${stat.value}"]`);
           if (!el) return;
 
+          const numStr = stat.value.replace(/[^0-9.]/g, '');
+          const num = parseFloat(numStr);
+          if (isNaN(num)) {
+            el.textContent = stat.value;
+            return;
+          }
+
+          const suffix = stat.value.replace(/[0-9.]/g, '');
+          const isDecimal = num % 1 !== 0;
+
+          const obj = { val: 0 };
           gsap.to(obj, {
             val: num,
             duration: 2,
@@ -31,9 +37,7 @@ export function CompanyIntro() {
               toggleActions: 'play none none none',
             },
             onUpdate: () => {
-              const prefix = stat.value.startsWith('99') ? '' : '';
-              const suffix = stat.value.replace(/[0-9.]/g, '');
-              el.textContent = `${prefix}${num % 1 !== 0 ? obj.val.toFixed(1) : Math.floor(obj.val)}${suffix}`;
+              el.textContent = `${isDecimal ? obj.val.toFixed(1) : Math.floor(obj.val)}${suffix}`;
             },
           });
         });

@@ -140,7 +140,7 @@ export function ITSecurity() {
                           y1="200"
                           x2={x}
                           y2={y}
-                          stroke={i === activeNode ? '#0090F0' : '#283040'}
+                          stroke={i === activeNode ? '#E60000' : '#283040'}
                           strokeWidth={i === activeNode ? 1.5 : 1}
                           strokeDasharray="200"
                           style={{ transition: 'stroke 0.5s ease, stroke-width 0.5s ease' }}
@@ -161,14 +161,14 @@ export function ITSecurity() {
                       return (
                         <g key={node.id} style={{ transition: 'all 0.5s ease' }}>
                           {isActive && (
-                            <circle cx={x} cy={y} r="28" fill="rgba(0,144,240,0.1)" className="animate-pulse-glow" />
+                            <circle cx={x} cy={y} r="28" fill="rgba(230,0,0,0.1)" className="animate-pulse-glow" />
                           )}
                           <circle
                             cx={x}
                             cy={y}
                             r={isActive ? 20 : 14}
-                            fill={isActive ? '#0090F0' : '#141821'}
-                            stroke={isActive ? '#2EA4F5' : '#283040'}
+                            fill={isActive ? '#E60000' : '#141821'}
+                            stroke={isActive ? '#FF3838' : '#283040'}
                             strokeWidth={isActive ? 2 : 1}
                             style={{ transition: 'all 0.5s ease' }}
                           />
@@ -186,10 +186,10 @@ export function ITSecurity() {
                     })}
 
                     {/* Center hub */}
-                    <circle cx="200" cy="200" r="40" fill="rgba(0,144,240,0.05)" stroke="rgba(0,144,240,0.3)" strokeWidth="1" />
-                    <circle cx="200" cy="200" r="28" fill="#0A0C10" stroke="#0090F0" strokeWidth="1.5" />
-                    <text x="200" y="196" textAnchor="middle" fill="#0090F0" style={{ fontSize: '8px', fontFamily: 'JetBrains Mono', letterSpacing: '1px' }}>INFONET</text>
-                    <text x="200" y="208" textAnchor="middle" fill="#5CB8FA" style={{ fontSize: '7px', fontFamily: 'JetBrains Mono' }}>SECURE CORE</text>
+                    <circle cx="200" cy="200" r="40" fill="rgba(230,0,0,0.05)" stroke="rgba(230,0,0,0.3)" strokeWidth="1" />
+                    <circle cx="200" cy="200" r="28" fill="#0A0C10" stroke="#E60000" strokeWidth="1.5" />
+                    <text x="200" y="196" textAnchor="middle" fill="#E60000" style={{ fontSize: '8px', fontFamily: 'JetBrains Mono', letterSpacing: '1px' }}>INFONET</text>
+                    <text x="200" y="208" textAnchor="middle" fill="#FF5C5C" style={{ fontSize: '7px', fontFamily: 'JetBrains Mono' }}>SECURE CORE</text>
                   </svg>
 
                   {/* Active label */}

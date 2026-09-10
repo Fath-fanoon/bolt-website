@@ -95,7 +95,7 @@ export const products = [
     category: 'Enterprise Resource Planning',
     description: 'A complete ERP platform integrating finance, inventory, sales, procurement, and HR into a single unified system. Real-time dashboards, automated workflows, and comprehensive reporting give you total visibility across your operation.',
     features: ['Financial Management', 'Inventory Control', 'Procurement', 'Sales & CRM', 'HR & Payroll', 'Real-time Reporting'],
-    accent: '#0090F0',
+    accent: '#E60000',
   },
   {
     id: 'retail',
@@ -103,7 +103,7 @@ export const products = [
     category: 'Retail Management',
     description: 'Omnichannel retail management software designed for modern stores. Handle sales, stock, customer loyalty, and supplier relationships from one intuitive interface with barcode integration and real-time sync.',
     features: ['Point of Sale', 'Stock Management', 'Customer Loyalty', 'Supplier Management', 'Barcode Integration', 'Multi-Store Sync'],
-    accent: '#00E5A0',
+    accent: '#FF3838',
   },
   {
     id: 'restaurant',
@@ -119,7 +119,7 @@ export const products = [
     category: 'Healthcare Management',
     description: 'Healthcare management software for clinics and medical facilities. Patient records, appointment scheduling, billing, and electronic prescriptions in a HIPAA-compliant, secure environment built for medical professionals.',
     features: ['Patient Records', 'Appointment Scheduling', 'Medical Billing', 'E-Prescriptions', 'Lab Integration', 'Compliance & Security'],
-    accent: '#5CB8FA',
+    accent: '#FF8A8A',
   },
   {
     id: 'business-mgmt',
@@ -127,7 +127,7 @@ export const products = [
     category: 'Business Management Suite',
     description: 'An all-in-one business management suite combining project management, document control, task tracking, and team collaboration. Designed to unify operations for growing businesses across every department.',
     features: ['Project Management', 'Document Control', 'Task Tracking', 'Team Collaboration', 'Workflow Automation', 'Performance Analytics'],
-    accent: '#2EA4F5',
+    accent: '#FF5C5C',
   },
 ];
 

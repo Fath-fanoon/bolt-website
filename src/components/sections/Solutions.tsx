@@ -125,7 +125,7 @@ export function Solutions() {
                     <div className="absolute inset-0 grid-bg opacity-20" />
                     <div
                       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-[80px] transition-all duration-700"
-                      style={{ backgroundColor: 'rgba(0, 144, 240, 0.15)' }}
+                      style={{ backgroundColor: 'rgba(230, 0, 0, 0.15)' }}
                     />
 
                     {/* Icon */}

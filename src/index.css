@@ -24,7 +24,7 @@
   }
 
   ::selection {
-    background: rgba(0, 144, 240, 0.3);
+    background: rgba(230, 0, 0, 0.3);
     color: #fff;
   }
 }
@@ -45,15 +45,15 @@
   }
 
   .glow-accent {
-    box-shadow: 0 0 60px -20px rgba(0, 144, 240, 0.5);
+    box-shadow: 0 0 60px -20px rgba(230, 0, 0, 0.5);
   }
 
   .text-glow {
-    text-shadow: 0 0 30px rgba(0, 144, 240, 0.4);
+    text-shadow: 0 0 30px rgba(230, 0, 0, 0.4);
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #E4E7EC 0%, #8ACCFE 100%);
+    background: linear-gradient(135deg, #E4E7EC 0%, #FF5C5C 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

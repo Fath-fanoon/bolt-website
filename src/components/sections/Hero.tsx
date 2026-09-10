@@ -53,7 +53,7 @@ export function Hero() {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
-      color: 0x2EA4F5,
+      color: 0xFF3838,
       size: 0.08,
       transparent: true,
       opacity: 0.6,
@@ -70,7 +70,7 @@ export function Hero() {
     const linePositions = new Float32Array(lineMaxConnections * 6);
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x0090F0,
+      color: 0xE60000,
       transparent: true,
       opacity: 0.15,
       blending: THREE.AdditiveBlending,
